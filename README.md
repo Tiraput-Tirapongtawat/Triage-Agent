@@ -1,4 +1,4 @@
-# Support Ticket Triage Agent (Homework)
+# Support Ticket Triage Agent
 
 ## Checkpoint 1
 - Triage policy and output contract:
