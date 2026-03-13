@@ -17,7 +17,7 @@
   - `agent_tools.py`
 - System prompt:
   - `docs/system_prompt.md`
-- Brief write-up (assignment item #5):
+- Brief write-up:
   - `docs/writeup.md`
 
 ## Run mock mode (offline)
