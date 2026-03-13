@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 
@@ -45,9 +46,21 @@ def _get_agent():
 
 def _ticket_message(ticket: SupportTicket) -> str:
     ticket_payload = ticket.model_dump(exclude={"expected": True})
+    ticket_json = json.dumps(ticket_payload, ensure_ascii=False, indent=2)
     return (
-        "Process this support ticket and return the final triage result.\n\n"
-        f"Ticket JSON:\n{ticket_payload}"
+        "Triage this single support ticket and return the final structured triage result.\n"
+        "\n"
+        "Requirements for this ticket:\n"
+        "- Read the conversation in `messages` in sequence order.\n"
+        "- Use the ticket details and tool results to determine urgency, product, issue_type, sentiment, next_action, and route_team.\n"
+        "- Call `customer_history_lookup` and `knowledge_base_lookup` at least once.\n"
+        "- Call `system_status_lookup` if outage, auth, or regional stability is a plausible factor.\n"
+        "- Set `recommended_docs` from tool results only.\n"
+        "- Keep taxonomy values in English and preserve the given ticket_id.\n"
+        "- Keep the rationale concise and based on concrete evidence from the ticket and tools.\n"
+        "\n"
+        "Ticket JSON:\n"
+        f"{ticket_json}"
     )
 
 
